@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html>
+<?php    
+    if (!isset($_SERVER['HTTPS'])) {
+        $url = 'https://' . $_SERVER['HTTP_HOST'] .
+         $_SERVER['REQUEST_URI'];  // start with /...
+        header("Location: " . $url);  // Redirect - 302
+        exit;                         // should be before any output
+    }                               
+?> 
+    <head>
+        <title>NUTS FOR COOKIEs</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <style>
+        </style>
+    </head>
+    
+    <body>
+        
+        <div class="container">
+            <div class="row">
+                <div class="bg-success">
+                   <!-- <img src="cookie_image.jpg" alt="Cookie picture" style="opacity: 0.6; height: 200px;"> -->
+                    <h1 style="text-align:center; padding-top: 10px;">NUTS FOR COOKIES</h1>
+                    <h3 style="text-align: center; padding-bottom: 10px;">User: <?php echo $username; ?></h3>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-2 bg-warning">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a id="home" data-toggle="modal" data-target="#">Home</a></li>
+                        <li><a id="buy-cookies" data-toggle="modal" data-target="#modal-buy-cookies">Buy Cookies</a></li>
+                        <li><a id="sell-cookies" data-toggle="modal" data-target="#modal-sell-cookies" >Sell Cookies</a></li>
+                        <li><a id="search-cookie" data-toggle="dropdown" class="dropdown-toggle" >Search Cookie<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a id="search-by-name" data-toggle="modal" data-target="#modal-search-name">By name</a></li>
+                                <li><a id="search-by-owner" data-toggle="modal" data-target="#modal-search-seller">By seller</a></li>
+                                <li><a id="search-by-ID" data-toggle="modal" data-target="#modal-search-ID">By ID</a></li>
+                            </ul>
+                        </li>
+                        <li><a id="marketplace" data-toggle="modal" data-target="#" >Marketplace</a></li>
+                        <li><a id="signout">Sign Out</a></li>
+                        <li><a id="unsubscribe" >Unsubscribe</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-10" style="border: black 2px">
+                    <div id="content">
+                  
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div>
+                </div>
+            </div>
+            
+            <div class="modal fade" id="modal-home" role="dialog">
+                <div class="modal-dialog">
+                </div>
+            </div>
+            
+            <div class="modal fade" id="modal-buy-cookies" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="form-buy-cookies">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Buy Cookie</h4>
+                            </div>
+                            <div class="modal-body">
+                                <label for="input-buy-cookie">Cookie:</label>
+                                <input id="input-buy-cookie" class="form-control" type="text" autofocus required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button id="submit-cookie-request" type="button" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal fade" id="modal-sell-cookies" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="form-sell-cookies">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Sell Cookies</h4>
+                            </div>
+                            <div class="modal-body">
+                                <label for="input-sell-cookie">Cookie details:</label>
+                                <input id="input-sell-cookie" class="form-control" type="text" autofocus required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button id="submit-cookie-sell" type="button" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+             
+            <!-- Search cookie by Name modal window -->
+            <div class="modal fade" id="modal-search-name" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="form-search-question">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Search for Cookie by Name</h4>
+                            </div>
+                            <div class="modal-body">
+                                <label for="input-search-name">Name:</label>
+                                <input id="input-search-name" class="form-control" type="text" autofocus required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button id="submit-cookie-name" type="button" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>    
+            </div>     
+                    
+            <!-- Search cookie by Seller modal window -->
+            <div class="modal fade" id="modal-search-seller" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="form-search-question">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Search for Cookie by Seller</h4>
+                            </div>
+                            <div class="modal-body">
+                                <label for="input-search-seller">Seller:</label>
+                                <input id="input-search-seller" class="form-control" type="text" autofocus required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button id="submit-cookie-seller" type="button" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>    
+            </div>
+                    
+            <!-- Search cookie by Cookie ID modal window -->
+            <div class="modal fade" id="modal-search-ID" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="form-search-question">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Search for Cookie by ID</h4>
+                            </div>
+                            <div class="modal-body">
+                                <label for="input-search-ID">Cookie ID:</label>
+                                <input id="input-search-ID" class="form-control" type="text" autofocus required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button id="submit-cookie-ID" type="button" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>    
+            </div>
+            
+            <!-- Home page script -->
+            <script>
+            
+                $("#home").click(function() 
+                {
+                    str = "<div class='col-md-5' style='border: black 2px'>"
+                    str += "<h3> HELLO THERE </h3>"
+                    str += "</div>"
+                    str += "<div class='col-md-5' style='border: black 2px'>"
+                    str += "<h3> HEY LEFT </h3>"
+                    str += "</div>"
+                    
+                    $('#content').html(str);
+                });
+                    
+                        
+                
+            </script>
+            
+            <!-- Buy cookie script -->
+            <script>
+                
+                $("#submit-cookie-request").click(function() 
+                {
+                    $("#modal-buy-cookies").modal('hide');
+                    
+                    var url = "cookie_controller.php";
+                    var query = { page:"MainPage", command: "#", question: $("#input-buy-cookie").val() };
+                    
+                    $.post(url,
+                          query,
+                          function(data) {
+                            $("#").html(data);
+                    });
+                    
+                });
+                
+            </script>
+            
+             <!-- Sell cookie script -->
+            <script>
+                 
+                $("#submit-cookie-sell").click(function () {
+                    $("#modal-sell-cookies").modal("hide");
+                    
+                    var url = "cookie_controller.php";
+                    var query = {page: "MainPage", command: "#", searchTerm: $("input#input-sell-cookie").val() };
+                    
+                    $.post(url,
+                          query,
+                          function(data) {
+                            var cookie = JSON.parse(data);
+                            
+                    })
+                })
+                
+            </script>
+            
+           <!-- Search Cookie By Name modal script -->
+            <script>
+            // When the 'Submit' button on the 'Search Cookie by Name' Modal window is // clicked 
+            // jquery post
+            $('#submit-cookie-name').click(function() {
+                $('#modal-search-name').modal('hide');
+                
+                // Send then'SearchCookieByName' command using jQuery AJAX
+                
+                var url = 'cookie_controller.php';  // controller
+                var query = { page:"MainPage", command: "SearchByName",
+                                searchTerm: $('input#input-search-name').val() };  // read the search term from the input element
+
+                $.post(url,
+                    query,
+                    function(data) {
+                        var question = JSON.parse(data);  // Need to display it in a table in <div id='content'>
+                        var table = "<table class='table table-striped'>";
+                        table += '<tr>';
+                    
+                        for (var p in question[0])
+                            table += '<th>' + p + '</th>';
+                        table += '</tr>';
+                        
+                        for (var i = 0; i < question.length; i++) {
+                            table += '<tr>';
+                            for (var p in question[i]) 
+                                table += '<td>' + question[i][p] + '</td>';
+                            table += '</tr>';
+                        }
+                        
+                        table += '</table>';
+                    
+                    $('#content').html(table);
+                });
+            });
+            </script>
+            
+            <!-- Search Cookie By Seller modal script -->
+            <script>
+            // When the 'Submit' button on the 'Search Cookie by Name' Modal window is // clicked 
+            // jquery post
+            $('#submit-cookie-seller').click(function() {
+                $('#modal-search-seller').modal('hide');
+                
+                // Send then'SearchCookieByName' command using jQuery AJAX
+                
+                var url = 'cookie_controller.php';  // controller
+                var query = { page:"MainPage", command: "SearchBySeller",
+                                searchTerm: $('input#input-search-seller').val() };  // read the search term from the input element
+
+                $.post(url,
+                    query,
+                    function(data) {
+                        var question = JSON.parse(data);  // Need to display it in a table in <div id='content'>
+                        var table = "<table class='table table-striped'>";
+                        table += '<tr>';
+                    
+                        for (var p in question[0])
+                            table += '<th>' + p + '</th>';
+                        table += '</tr>';
+                        
+                        for (var i = 0; i < question.length; i++) {
+                            table += '<tr>';
+                            for (var p in question[i]) 
+                                table += '<td>' + question[i][p] + '</td>';
+                            table += '</tr>';
+                        }
+                        
+                        table += '</table>';
+                    
+                    $('#content').html(table);
+                });
+            });
+            </script>
+            
+            <!-- Search Cookie By Cookie ID modal script -->
+            <script>
+            // When the 'Submit' button on the 'Search Cookie by Name' Modal window is // clicked 
+            // jquery post
+            $('#submit-cookie-ID').click(function() {
+                $('#modal-search-ID').modal('hide');
+                
+                // Send then'SearchCookieByName' command using jQuery AJAX
+                
+                var url = 'cookie_controller.php';  // controller
+                var query = { page:"MainPage", command: "SearchByID",
+                                searchTerm: $('input#input-search-ID').val() };  // read the search term from the input element
+
+                $.post(url,
+                    query,
+                    function(data) {
+                        var question = JSON.parse(data);  // Need to display it in a table in <div id='content'>
+                        var table = "<table class='table table-striped'>";
+                        table += '<tr>';
+                    
+                        for (var p in question[0])
+                            table += '<th>' + p + '</th>';
+                        table += '</tr>';
+                        
+                        for (var i = 0; i < question.length; i++) {
+                            table += '<tr>';
+                            for (var p in question[i]) 
+                                table += '<td>' + question[i][p] + '</td>';
+                            table += '</tr>';
+                        }
+                        
+                        table += '</table>';
+                    
+                    $('#content').html(table);
+                });
+            });
+            </script>
+            
+            <!-- Marketplace page script -->
+            <script>
+            
+                $("#marketplace").click(function() 
+                {
+                    navs = "<div style='margin: 10px;'><ul class='nav nav-pills nav-justified'>"
+                    navs += "<li class='active'><a id='#'>Update</a></li>"
+                    navs += "<li><a id='#'>Delete</a></li>"
+                    navs += "<li><a id='#'>Get Cookie $ Average</a></li></ul></div>"
+                     
+                    $('#content').html(navs);
+                });       
+                
+            </script>
+            
+            <form id="form-signout" method ="post" action="cookie_controller.php" style="display: none">
+                <input type="hidden" name="page" value="MainPage">
+                <input type="hidden" name="command" value="SignOut">
+            </form>
+            
+            
+            <script>
+                function signout() {
+                    document.getElementById('form-signout').submit();  // submit the 'form-signout' form.
+                }
+
+            // When the 'sign-out' navigation pill is clicked
+                $('#sign-out').click(signout);
+            </script>
+        </div>
+    </body>
+</html>
