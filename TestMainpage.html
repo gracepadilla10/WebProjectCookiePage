@@ -51,7 +51,10 @@
                 
                 <div class="col-md-10" style="border: black 2px">
                     <div id="content">
-                  
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div id="under-content">
                     </div>
                 </div>
             </div>
@@ -237,6 +240,7 @@
             // When the 'Submit' button on the 'Search Cookie by Name' Modal window is // clicked 
             // jquery post
             $('#submit-cookie-name').click(function() {
+                 $('#under-content').css('display', 'none');
                 $('#modal-search-name').modal('hide');
                 
                 // Send then'SearchCookieByName' command using jQuery AJAX
@@ -275,6 +279,7 @@
             // When the 'Submit' button on the 'Search Cookie by Name' Modal window is // clicked 
             // jquery post
             $('#submit-cookie-seller').click(function() {
+                 $('#under-content').css('display', 'none');
                 $('#modal-search-seller').modal('hide');
                 
                 // Send then'SearchCookieByName' command using jQuery AJAX
@@ -313,6 +318,7 @@
             // When the 'Submit' button on the 'Search Cookie by Name' Modal window is // clicked 
             // jquery post
             $('#submit-cookie-ID').click(function() {
+                $('#under-content').css('display', 'none');
                 $('#modal-search-ID').modal('hide');
                 
                 // Send then'SearchCookieByName' command using jQuery AJAX
@@ -352,11 +358,20 @@
                 $("#marketplace").click(function() 
                 {
                     navs = "<div style='margin: 10px;'><ul class='nav nav-pills nav-justified'>"
-                    navs += "<li class='active'><a id='#'>Update</a></li>"
-                    navs += "<li><a id='#'>Delete</a></li>"
+                    navs += "<li><a id='show-table'>Show Table</a></li>"
+                    navs += "<li><a id='#'>Update Cookie</a></li>"
+                    navs += "<li><a id='#'>Delete Cookie</a></li>"
                     navs += "<li><a id='#'>Get Cookie $ Average</a></li></ul></div>"
                      
                     $('#content').html(navs);
+                    
+                    $(document).ready (function () {
+                        $('#show-table').click(function (){
+                            table = "<h3>TABLE HERE</h3>";
+                            
+                            $('#under-content').html(table);
+                        });
+                    });
                 });       
                 
             </script>
