@@ -146,6 +146,23 @@ function display_marketplace() {
     return;
 }
 
+function update_cookie_quantity($cookie_ID, $cookie_quantity) {
+    global $conn;
+
+    $sql = "UPDATE Cookie_Marketplace set Quantity = $cookie_quantity WHERE (Cookie_ID = $cookie_ID)";
+    $result = mysqli_query($conn, $sql);
+    echo "Question posted succesfully!";
+    $i = 0;
+    
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            $data[$i++] = $row;
+        }
+        echo json_encode($data);
+    }
+    return;
+}
+
 function unsubscribe($username) {
     global $conn;
 

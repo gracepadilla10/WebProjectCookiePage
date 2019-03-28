@@ -110,6 +110,10 @@ else if ($_POST['page'] == 'MainPage')
             display_marketplace();
             break;
 
+        case 'UpdateCookieQuantity':
+            update_cookie_quantity($_POST['searchTerm'], $_POST['cookie_quantity']);
+            break;
+
         case 'Unsubscribe':
             unsubscribe($_SESSION['username']);
             break;
