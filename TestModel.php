@@ -188,6 +188,17 @@ function update_cookie_price($cookie_ID, $cookie_price) {
     return;
 }
 
+// Function to delete a cookie from the Marketplace table
+function delete_cookie($cookie_ID) {
+    global $conn;
+
+    $sql = "DELETE from Cookie_Marketplace where (Cookie_ID = $cookie_ID)";
+    $result = mysqli_query($conn, $sql);
+    echo "Cookie deleted succesfully!";
+
+    return;
+}
+
 function unsubscribe($username) {
     global $conn;
 
