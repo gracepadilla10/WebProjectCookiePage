@@ -65,7 +65,7 @@ function sell_cookie($cookie_name, $cookie_quantity, $cookie_price, $u)  // cook
         echo "Selling cookie failed!";
     }
     
-    $sql = "INSERT into Cookie_Marketplace values (NULL, '$u', '$cookie_name', '$cookie_quantity', '$cookie_price')";
+    $sql = "INSERT into Cookie_Marketplace values (NULL, '$u', '$cookie_name', $cookie_quantity, $cookie_price)";
     
     $result = mysqli_query($conn, $sql);
     echo "Cookie added in Marketplace succesfully";
