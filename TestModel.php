@@ -129,6 +129,23 @@ function search_by_ID($cookie_ID)
     return;
 }
 
+// Function to display the Marketplace table and the items within
+function display_marketplace() {
+    global $conn;
+
+    $sql = "SELECT * FROM Cookie_Marketplace limit 25";
+    $result = mysqli_query($conn, $sql);
+    $i = 0;
+
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            $data[$i++] = $row;
+        }
+        echo json_encode($data);
+    }
+    return;
+}
+
 function unsubscribe($username) {
     global $conn;
 

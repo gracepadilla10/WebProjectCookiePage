@@ -240,7 +240,7 @@
             // When the 'Submit' button on the 'Search Cookie by Name' Modal window is // clicked 
             // jquery post
             $('#submit-cookie-name').click(function() {
-                 $('#under-content').css('display', 'none');
+                $('#under-content').css('display', 'none');
                 $('#modal-search-name').modal('hide');
                 
                 // Send then'SearchCookieByName' command using jQuery AJAX
@@ -366,11 +366,39 @@
                     $('#content').html(navs);
                     
                     $(document).ready (function () {
+                        // Function in Marketplace table to run the Show the entire Marketplace table and the elements within
                         $('#show-table').click(function (){
-                            table = "<h3>TABLE HERE</h3>";
                             
-                            $('#under-content').html(table);
+                            var url = 'cookie_controller.php';  // controller
+                            var query = { page:"MainPage", command: "ShowMarketplace" };  // read the search term from the input element
+
+                        $.post(url,
+                                query,
+                                function(data) {
+                                    var question = JSON.parse(data);  // Need to display it in a table in <div id='content'>
+                                    var table = "<table class='table table-striped'>";
+                                    table += '<tr>';
+                    
+                                    for (var p in question[0])
+                                        table += '<th>' + p + '</th>';
+                                    table += '</tr>';
+                        
+                                    for (var i = 0; i < question.length; i++) {
+                                        table += '<tr>';
+                                        for (var p in question[i]) 
+                                            table += '<td>' + question[i][p] + '</td>';
+                                        table += '</tr>';
+                                    }
+                        
+                                    table += '</table>';
+                    
+                                    $('#under-content').html(table);
+                                });
                         });
+                    
+                    // Function in Marketplace table to run the Update table when a cookie needs to be updated.
+                    
+
                     });
                 });       
                 

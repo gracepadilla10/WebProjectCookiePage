@@ -106,6 +106,10 @@ else if ($_POST['page'] == 'MainPage')
             search_by_ID($_POST['searchTerm']);
             break;
 
+        case 'ShowMarketplace':
+            display_marketplace();
+            break;
+
         case 'Unsubscribe':
             unsubscribe($_SESSION['username']);
             break;
