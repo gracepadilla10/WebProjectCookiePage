@@ -51,7 +51,7 @@ function does_exist($username)
 *   Queries
 */
 
-function sell_cookie($c, $quantity, $price, $u)  // cookie, username
+function sell_cookie($cookie_name, $cookie_quantity, $cookie_price, $u)  // cookie, username
 {
     global $conn;
 
@@ -65,10 +65,10 @@ function sell_cookie($c, $quantity, $price, $u)  // cookie, username
         echo "Selling cookie failed!";
     }
     
-    $sql = "INSERT into Cookie_Marketplace (NULL, $u, '$c', $quantity, $price)";
+    $sql = "INSERT into Cookie_Marketplace values (NULL, '$u', '$cookie_name', '$cookie_quantity', '$cookie_price')";
     
     $result = mysqli_query($conn, $sql);
-    echo "Question posted succesfully";
+    echo "Cookie added in Marketplace succesfully";
     return;
 }
 

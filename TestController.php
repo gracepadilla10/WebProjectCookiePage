@@ -85,13 +85,14 @@ else if ($_POST['page'] == 'MainPage')
             break;
 
         // posting a question
-        case 'BuyCookie':
-            post_question($_POST['question'], $_SESSION['username']);  // in model.php
-            break;
+      //  case 'BuyCookie':
+      //      post_question($_POST['question'], $_SESSION['username']);  // in model.php
+      //      break;
 
         // list questions
        case 'SellCookie':
-            sell_cookie($_POST['question'], $_POST[], $_POST[], $_SESSION['username']);
+            sell_cookie($_POST['cookie_name'], $_POST['cookie_quantity'], 
+                        $_POST['cookie_price'], $_SESSION['username']);
             break;
             
         case 'SearchByName':

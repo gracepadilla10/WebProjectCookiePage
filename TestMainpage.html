@@ -35,7 +35,7 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li><a id="home" data-toggle="modal" data-target="#">Home</a></li>
                         <li><a id="buy-cookies" data-toggle="modal" data-target="#modal-buy-cookies">Buy Cookies</a></li>
-                        <li><a id="sell-cookies" data-toggle="modal" data-target="#modal-sell-cookies" >Sell Cookies</a></li>
+                        <li><a id="sell-cookies" data-toggle="modal" data-target="#modal-sell-cookie">Sell Cookies</a></li>
                         <li><a id="search-cookie" data-toggle="dropdown" class="dropdown-toggle" >Search Cookie<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a id="search-by-name" data-toggle="modal" data-target="#modal-search-name">By name</a></li>
@@ -90,21 +90,26 @@
                 </div>
             </div>
             
-            <div class="modal fade" id="modal-sell-cookies" role="dialog">
+            <!-- Sell Coookie modal window, this will Insert the cookie into the database-->
+            <div class="modal fade" id="modal-sell-cookie" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form id="form-sell-cookies">
+                        <form id="form-sell-cookie">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Sell Cookies</h4>
                             </div>
                             <div class="modal-body">
-                                <label for="input-sell-cookie">Cookie details:</label>
-                                <input id="input-sell-cookie" class="form-control" type="text" autofocus required>
+                                <label for="input-sell-cookie-name">Cookie Name:</label>
+                                <input id="input-sell-cookie-name" class="form-control" type="text" autofocus required>
+                                <label for="input-sell-cookie-quantity">Cookie Quantity:</label>
+                                <input id="input-sell-cookie-quantity" class="form-control" type="text" autofocus required>
+                                <label for="input-sell-cookie-price">Cookie Price:</label>
+                                <input id="input-sell-cookie-price" class="form-control" type="text" autofocus required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button id="submit-cookie-sell" type="button" class="btn btn-primary">Submit</button>
+                                <button id="submit-sell-cookie" type="button" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -289,19 +294,25 @@
              <!-- Sell cookie script -->
             <script>
                  
-                $("#submit-cookie-sell").click(function () {
-                    $("#modal-sell-cookies").modal("hide");
-                    
-                    var url = "cookie_controller.php";
-                    var query = {page: "MainPage", command: "#", searchTerm: $("input#input-sell-cookie").val() };
-                    
+                $('#submit-sell-cookie').click(function() {
+                    $('#under-content').css('display', 'none');
+                    $('#modal-sell-cookie').modal('hide');
+                
+                // Send then'SearchCookieByName' command using jQuery AJAX
+                
+                    var url = 'cookie_controller.php';  // controller
+                    var query = { page:"MainPage", command: "SellCookie",
+                                cookie_name: $('input#input-sell-cookie-name').val(),
+                                cookie_quantity: $('input#input-sell-cookie-quantity').val(),
+                                cookie_price: $('input#input-sell-cookie-price').val() };
+
                     $.post(url,
-                          query,
-                          function(data) {
-                            var cookie = JSON.parse(data);
-                            
-                    })
-                })
+                            query,
+                            function(data) {
+                                $('#content').html(data);
+
+                    });
+                });
                 
             </script>
             
@@ -441,7 +452,7 @@
                     $(document).ready (function () {
                         // Function in Marketplace table to run the Show the entire Marketplace table and the elements within
                         $('#show-table').click(function (){
-                            
+                            $('#under-content').css('display', 'block');
                             var url = 'cookie_controller.php';  // controller
                             var query = { page:"MainPage", command: "ShowMarketplace" };  // read the search term from the input element
 
