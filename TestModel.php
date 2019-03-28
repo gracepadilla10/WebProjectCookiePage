@@ -146,16 +146,41 @@ function display_marketplace() {
     return;
 }
 
+// Function to update the quantity of an specific cookie
 function update_cookie_quantity($cookie_ID, $cookie_quantity) {
     global $conn;
 
     $sql = "UPDATE Cookie_Marketplace set Quantity = $cookie_quantity WHERE (Cookie_ID = $cookie_ID)";
     $result = mysqli_query($conn, $sql);
-    echo "Question posted succesfully!";
+    echo "Cookie quantity updated succesfully!";
+
+    $sqli = "SELECT * FROM Cookie_Marketplace WHERE Cookie_ID LIKE '%$cookie_ID%'";
+    $results = mysqli_query($conn, $sqli);
     $i = 0;
-    
-    if (mysqli_num_rows($result) > 0) {
-        while($row = mysqli_fetch_assoc($result)) {
+
+    if (mysqli_num_rows($results) > 0) {
+        while($row = mysqli_fetch_assoc($results)) {
+            $data[$i++] = $row;
+        }
+        echo json_encode($data);
+    }
+    return;
+}
+
+// Function to update the price of an specific coookie
+function update_cookie_price($cookie_ID, $cookie_price) {
+    global $conn;
+
+    $sql = "UPDATE Cookie_Marketplace set Price = $cookie_price WHERE (Cookie_ID = $cookie_ID)";
+    $result = mysqli_query($conn, $sql);
+    echo "Cookie price updated succesfully!";
+
+    $sqli = "SELECT * FROM Cookie_Marketplace WHERE Cookie_ID LIKE '%$cookie_ID%'";
+    $results = mysqli_query($conn, $sqli);
+    $i = 0;
+
+    if (mysqli_num_rows($results) > 0) {
+        while($row = mysqli_fetch_assoc($results)) {
             $data[$i++] = $row;
         }
         echo json_encode($data);

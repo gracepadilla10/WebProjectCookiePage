@@ -113,6 +113,10 @@ else if ($_POST['page'] == 'MainPage')
         case 'UpdateCookieQuantity':
             update_cookie_quantity($_POST['searchTerm'], $_POST['cookie_quantity']);
             break;
+        
+        case 'UpdateCookiePrice':
+            update_cookie_price($_POST['searchTerm'], $_POST['cookie_price']);
+            break;
 
         case 'Unsubscribe':
             unsubscribe($_SESSION['username']);
