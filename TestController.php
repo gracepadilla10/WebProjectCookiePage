@@ -84,12 +84,15 @@ else if ($_POST['page'] == 'MainPage')
             include('view_cookie_startpage.php');
             break;
 
-        // posting a question
+        case 'ShowOwnerTable':
+            display_owner_table($_SESSION['username']);
+            break;
+
       //  case 'BuyCookie':
       //      post_question($_POST['question'], $_SESSION['username']);  // in model.php
       //      break;
 
-        // list questions
+        // 
        case 'SellCookie':
             sell_cookie($_POST['cookie_name'], $_POST['cookie_quantity'], 
                         $_POST['cookie_price'], $_SESSION['username']);

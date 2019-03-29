@@ -51,6 +51,22 @@ function does_exist($username)
 *   Queries
 */
 
+function display_owner_table($username) {
+    global $conn;
+
+    $sql = "SELECT * FROM Cookie_Ownership WHERE (Owner = '$username') limit 25";
+    $result = mysqli_query($conn, $sql);
+    $i = 0;
+
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            $data[$i++] = $row;
+        }
+        echo json_encode($data);
+    }
+    return;
+}
+
 function sell_cookie($cookie_name, $cookie_quantity, $cookie_price, $u)  // cookie, username
 {
     global $conn;
