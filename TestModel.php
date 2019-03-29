@@ -199,15 +199,18 @@ function delete_cookie($cookie_ID) {
     return;
 }
 
-function unsubscribe($username) {
+function unsubscribe($username, $password) {
     global $conn;
+
+    $hashed_password = sha1($password);
 
     if (!does_exist($username))
         return false;
+
     else {
-        $sql = "DELETE from Users WHERE (Username = '$username')";
+        $sql = "DELETE from Users WHERE (Username = '$username' and Password = '$hashed_password')";
         $result = mysqli_query($conn, $sql);
-        return $result;
+        return;
     }
 
 }

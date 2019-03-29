@@ -45,7 +45,7 @@
                         </li>
                         <li><a id="marketplace" data-toggle="modal" data-target="#" >Marketplace</a></li>
                         <li><a id="signout">Sign Out</a></li>
-                        <li><a id="unsubscribe" >Unsubscribe</a></li>
+                        <li><a id="unsubscribe" data-toggle="modal" data-target="#modal-unsubscribe">Unsubscribe</a></li>
                     </ul>
                 </div>
                 
@@ -246,6 +246,29 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 <button id="submit-delete-cookie" type="button" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>    
+            </div>
+
+            <!-- Unsubscribe from the cookie Marketplace, this will delete the user from the Users table -->
+            <div class="modal fade" id="modal-unsubscribe" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="form-unsubscribe">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Unsubscribe</h4>
+                                <h2> Please enter password to confirm that you want to Unsubscribe </h2>
+                            </div>
+                            <div class="modal-body">
+                                <label for="input-unsubscribe">Password:</label>
+                                <input id="input-unsubscribe" class="form-control" type="password" autofocus required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button id="submit-unsubscribe" type="button" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -542,8 +565,36 @@
                 }
 
                 // When the 'sign-out' navigation pill is clicked
-                $('#sign-out').click(signout);
+                $('#signout').click(function () {
+                       var url = 'cookie_controller.php';
+                       var query = { page:"MainPage", command: "SignOut" }; 
+                });
             </script>
+            
+            <!-- Function to unsubscribe from the page, this will Delete the user from the Users database.-->
+            <script>
+                 
+                $('#submit-unsubscribe').click(function() {
+                    $('#under-content').css('display', 'none');
+                    $('#modal-unsubscribe').modal('hide');
+                
+                // Send then'SearchCookieByName' command using jQuery AJAX
+                
+                    var url = 'cookie_controller.php';  // controller
+                    var query = { page:"MainPage", command: "Unsubscribe",
+                                user_password: $('input#input-unsubscribe').val() };
+
+                    $.post(url,
+                            query,
+                            function(data) {
+                                $('#under-content').html(data);
+                            });
+
+                    });
+                });
+                
+            </script>
+            
         </div>
     </body>
 </html>

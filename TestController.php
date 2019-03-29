@@ -10,7 +10,7 @@ if (!isset($_SERVER['HTTPS'])) {
 
 if (empty($_POST['page'])) {  // When no page is sent from the client; The initial display
                                 // You may use if (!isset($_POST['page'])) instead of empty(...).
-    $display_type = 'no-signin';  // This variable will be used in 'view_startpage.php'.
+    $display_type = 'no-signin';  // This variable will be used in 'cookie_view_startpage.php'.
                               // It will display the start page without any box, i.e., no SignIn box, no Join box, ...
     include ('view_cookie_startpage.php');
     exit();
@@ -124,7 +124,13 @@ else if ($_POST['page'] == 'MainPage')
             break;
 
         case 'Unsubscribe':
-            unsubscribe($_SESSION['username']);
+            unsubscribe($_SESSION['username'], $_POST['user_password']);
+            // destroy session variables and the session
+            session_unset();
+            session_destroy();   
+            // go to 'StartPage'
+            $display_type = 'no-signin';
+            include('view_cookie_startpage.php');
             break;
 
         default:
