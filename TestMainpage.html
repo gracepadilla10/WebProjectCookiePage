@@ -78,7 +78,7 @@
                                 <h4 class="modal-title">Buy Cookie</h4>
                             </div>
                             <div class="modal-body">
-                                <label for="input-buy-cookie">Cookie:</label>
+                                <label for="input-buy-cookie">Cookie ID:</label>
                                 <input id="input-buy-cookie" class="form-control" type="text" autofocus required>
                             </div>
                             <div class="modal-footer">
@@ -458,12 +458,12 @@
                     $("#modal-buy-cookies").modal('hide');
                     
                     var url = "cookie_controller.php";
-                    var query = { page:"MainPage", command: "#", question: $("#input-buy-cookie").val() };
+                    var query = { page:"MainPage", command: "BuyCookie", cookie_id: $("#input-buy-cookie").val() };
                     
                     $.post(url,
                           query,
                           function(data) {
-                            $("#").html(data);
+                            $("#content").html(data);
                     });
                     
                 });

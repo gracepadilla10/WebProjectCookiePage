@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 
 <html>
+<?php    
+    if (!isset($_SERVER['HTTPS'])) {
+        $url = 'https://' . $_SERVER['HTTP_HOST'] .
+         $_SERVER['REQUEST_URI'];  // start with /...
+        header("Location: " . $url);  // Redirect - 302
+        exit;                         // should be before any output
+    }                               
+?>
     <head>
         <title>NUTS FOR COOKIES</title>
         <style>

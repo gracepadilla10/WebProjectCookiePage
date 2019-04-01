@@ -88,9 +88,9 @@ else if ($_POST['page'] == 'MainPage')
             display_owner_table($_SESSION['username']);
             break;
 
-      //  case 'BuyCookie':
-      //      post_question($_POST['question'], $_SESSION['username']);  // in model.php
-      //      break;
+        case 'BuyCookie':
+            buy_cookie($_POST['cookie_id'], $_SESSION['username']);  // in model.php
+            break;
 
         // 
        case 'SellCookie':

@@ -67,6 +67,35 @@ function display_owner_table($username) {
     return;
 }
 
+// Function to buy a cookie from the Marketplace and add it to the owner table
+function buy_cookie($cookie_id, $username) {
+    global $conn;
+    $cookie_quantity = 0;
+    $cookie_name;
+
+    $sql_name = "SELECT Cookie_Name FROM Cookie_Marketplace WHERE Cookie_ID LIKE $cookie_id";
+    $result_name = mysqli_query($conn, $sql_name);
+
+    $sql_quantity = "SELECT Quantity FROM Cookie_Marketplace WHERE Cookie_ID LIKE $cookie_id";
+    $result_quantity = mysqli_query($conn, $sql_quantity);
+
+    if (mysqli_num_rows($result_name) > 0) {
+        $row = mysqli_fetch_assoc($result_name);
+        $cookie_name = $row['Cookie_Name'];
+    }
+
+    if (mysqli_num_rows($result_quantity) > 0) {
+        $row = mysqli_fetch_assoc($result_quantity);
+        $cookie_quantity = $row['Quantity'];
+    }
+    
+    $sql = "INSERT into Cookie_Ownership values ($cookie_id, '$username', '$cookie_name', $cookie_quantity)";
+    $result = mysqli_query($conn, $sql);
+    
+    echo "Cookie bought succesfully, It can be found on your home table";
+    return;
+}
+
 function sell_cookie($cookie_name, $cookie_quantity, $cookie_price, $u)  // cookie, username
 {
     global $conn;
