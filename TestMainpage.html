@@ -252,6 +252,28 @@
                 </div>    
             </div>
 
+            <!-- Get cookie average price from the Marketplace by Cookie Name modal window -->
+            <div class="modal fade" id="modal-average-price" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="form-average-price">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Delete Cookie by ID</h4>
+                            </div>
+                            <div class="modal-body">
+                                <label for="input-average-cookie-price">Cookie ID:</label>
+                                <input id="input-average-cookie-price" class="form-control" type="text" autofocus required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button id="submit-average-price" type="button" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>    
+            </div>
+
             <!-- Unsubscribe from the cookie Marketplace, this will delete the user from the Users table -->
             <div class="modal fade" id="modal-unsubscribe" role="dialog">
                 <div class="modal-dialog">
@@ -278,22 +300,126 @@
             <!-- Home page script -->
             <script>
 
-                $(document).ready (function () {
+                //
+                   
                     // Function in Marketplace table to run the Show the entire Marketplace table and the elements within
                     $('#home').click(function (){
 
-                        str = "<div class='col-md-5' style='border: black 2px'>"
-                        str += "<h3> HELLO THERE </h3>"
-                        str += "</div>"
-                        str += "<div class='col-md-5' style='border: black 2px'>"
-                        str += "<h3> HEY LEFT </h3>"
-                        str += "</div>"
+                    //
+                    // This are the images that are going to be randomly displayed on the div with id='random-image'
+                    //
+                
+                        str = "<div class='col-md-5' id='random-image' style='border: black 2px; margin: 20px;'><ul class='nav nav-pills nav-justified'>";
+                        str += "<li><a id='show-image'>Show Image</a></li></ul>";
+                        str += "<img src='images/cookie-meme-0.jpeg' id='img-0' width='250px' height='200px' style='display:none; margin-left:auto; margin-right:auto;'></img >";
+                        str += "<img src='images/cookie-meme-1.jpg' id='img-1' width='250px' height='200px' style='display:none; margin-left:auto; margin-right:auto;'></img>";
+                        str += "<img src='images/cookie-meme-2.png' id='img-2' width='250px' height='200px' style='display:none; margin-left:auto; margin-right:auto;'></img>";
+                        str += "<img src='images/cookie-meme-3.jpg' id='img-3' width='250px' height='200px' style='display:none; margin-left:auto; margin-right:auto;'></img>";
+                        str += "<img src='images/cookie-meme-4.jpg' id='img-4' width='250px' height='200px' style='display:none; margin-left:auto; margin-right:auto;'></img>";
+                        str += "<img src='images/cookie-meme-5.jpg' id='img-5' width='250px' height='200px' style='display:none; margin-left:auto; margin-right:auto;'></img>";
+                        str += "<img src='images/cookie-meme-6.jpeg' id='img-6' width='250px' height='200px' style='display:none; margin-left:auto; margin-right:auto;'></img>";
+                        str += "<img src='images/cookie-meme-7.jpg' id='img-7' width='250px' height='200px' style='display:none; margin-left:auto; margin-right:auto;'></img>";
+                        str += "</div>";
+                        str += "<div class='col-md-5' style='border: black 2px; margin: 20px;'><ul class='nav nav-pills nav-justified'>";
+                        str += "<li><a id='show-quote'>Show Quote</a></li></ul>";
+                        str += "<h4 id='quote-0' style='display:none; text-align:center;'><q>Happiness is an attitude. We either make ourselves miserable, or happy and strong. The amount of work is the same.</q></h4><h4 id='quote-a-0' style='display:none; text-align:center;'>-Carlos Castaneda</h4>";
+                        str += "<h4 id='quote-1' style='display:none; text-align:center;'><q>You have brains in your head. You have feet in your shoes. You can steer yourself, any direction you choose.</q></h4><h4 id='quote-a-1' style='display:none; text-align:center;'>-Dr. Seuss</h4>";
+                        str += "<h4 id='quote-2' style='display:none; text-align:center;'><q>Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do.</q></h4><h4 id='quote-a-2' style='display:none; text-align:center;'>-Steve Jobs</h4>";
+                        str += "<h4 id='quote-3' style='display:none; text-align:center;'><q>Instead of wondering when your next vacation is, you ought to set up a life you don’t need to escape from.</q></h4><h4 id='quote-a-3' style='display:none; text-align:center;'>-Seth Godin</h4>";
+                        str += "<h4 id='quote-4' style='display:none; text-align:center;'><q>It is not the strongest of the species that survive, nor the most intelligent, but the one most responsive to change.</q></h4><h4 id='quote-a-4' style='display:none; text-align:center;'>-Charles Darwin</h4>";
+                        str += "<h4 id='quote-5' style='display:none; text-align:center;'><q>Opportunity is missed by most people because it is dressed in overalls and looks like work.</q></h4><h4 id='quote-a-5' style='display:none; text-align:center;'>-Thomas Edison</h4>";
+                        str += "<h4 id='quote-6' style='display:none; text-align:center;'><q>Far and away the best prize that life offers is the chance to work hard at work worth doing.</q></h4><h4 id='quote-a-6' style='display:none; text-align:center;'>-Theodore Roosevelt</h4>";
+                        str += "<h4 id='quote-7' style='display:none; text-align:center;'><q>Happiness is not something you postpone for the future; it is something you design for the present.</q></h4><h4 id='quote-a-7' style='display:none; text-align:center;'>-Jim Rohn</h4>";
+                        str += "</div>";
                     
                         $('#content').html(str);
 
                         $('#under-content').css('display', 'block');
-                        var url = 'cookie_controller.php';  // controller
-                        var query = { page:"MainPage", command: "ShowOwnerTable" };  // read the search term from the input element
+
+                        $(document).ready (function () {
+                            var r_image = Math.floor((Math.random() * 7) + 1);
+                            var r_quote = Math.floor((Math.random() * 7) + 1);
+
+                            $('#show-image').click(function () {
+                                if (r_image == 0) {
+                                    $('#img-0').css('display', 'block');
+                                    $('#show-image').css('display', 'none');
+                                }
+                                else if (r_image == 1) {
+                                    $('#img-1').css('display', 'block'); 
+                                    $('#show-image').css('display', 'none');
+                                }
+                                else if (r_image == 2) {
+                                    $('#img-2').css('display', 'block');
+                                    $('#show-image').css('display', 'none');
+                                }
+                                else if (r_image == 3) {
+                                    $('#img-3').css('display', 'block');
+                                    $('#show-image').css('display', 'none');
+                                }
+                                else if (r_image == 4) {
+                                    $('#img-4').css('display', 'block');
+                                    $('#show-image').css('display', 'none');
+                                }
+                                else if (r_image == 5) {
+                                    $('#img-5').css('display', 'block');
+                                    $('#show-image').css('display', 'none');
+                                }
+                                else if (r_image == 6) {
+                                    $('#img-6').css('display', 'block');
+                                    $('#show-image').css('display', 'none');
+                                }
+                                else if (r_image == 7) {
+                                    $('#img-7').css('display', 'block');
+                                    $('#show-image').css('display', 'none');
+                                }
+                            });
+
+                            $('#show-quote').click(function () {
+                                if (r_quote == 0) {
+                                    $('#quote-0').css('display', 'block');
+                                    $('#quote-a-0').css('display', 'block');
+                                    $('#show-quote').css('display', 'none');
+                                }
+                                else if (r_quote == 1) {
+                                    $('#quote-1').css('display', 'block');
+                                    $('#quote-a-1').css('display', 'block'); 
+                                    $('#show-quote').css('display', 'none');
+                                }
+                                else if (r_quote == 2) {
+                                    $('#quote-2').css('display', 'block');
+                                    $('#quote-a-2').css('display', 'block'); 
+                                    $('#show-quote').css('display', 'none');
+                                }
+                                else if (r_quote == 3) {
+                                    $('#quote-3').css('display', 'block');
+                                    $('#quote-a-3').css('display', 'block'); 
+                                    $('#show-quote').css('display', 'none');
+                                }
+                                else if (r_quote == 4) {
+                                    $('#quote-4').css('display', 'block');
+                                    $('#quote-a-4').css('display', 'block'); 
+                                    $('#show-quote').css('display', 'none');
+                                }
+                                else if (r_quote == 5) {
+                                    $('#quote-5').css('display', 'block');
+                                    $('#quote-a-5').css('display', 'block'); 
+                                    $('#show-quote').css('display', 'none');
+                                }
+                                else if (r_quote == 6) {
+                                    $('#quote-6').css('display', 'block');
+                                    $('#quote-a-6').css('display', 'block'); 
+                                    $('#show-quote').css('display', 'none');
+                                }
+                                else if (r_quote == 7) {
+                                    $('#quote-7').css('display', 'block');
+                                    $('#quote-a-7').css('display', 'block'); 
+                                    $('#show-quote').css('display', 'none');
+                                }
+                            });
+                            
+                            var url = 'cookie_controller.php';  // controller
+                            var query = { page:"MainPage", command: "ShowOwnerTable" };  // read the search term from the input element
 
                             $.post(url,
                                 query,
@@ -502,6 +628,8 @@
                      
                     $('#content').html(navs);
                     
+                    $('#under-content').css('display', 'none');
+
                     $(document).ready (function () {
                         // Function in Marketplace table to run the Show the entire Marketplace table and the elements within
                         $('#show-table').click(function (){
@@ -571,6 +699,20 @@
 
                             var url = 'cookie_controller.php';
                             var query = { page:"MainPage", command: "DeleteCookie", cookie_delete: $("input#input-delete-cookie-id").val() };
+
+                            $.post(url,
+                                query,
+                                function(data) {
+                                $('#under-content').html(data);
+                            });
+                        });
+
+                        // Function in Marketplace table to run the Average price of a cookie button located in the Marketplace page
+                        $('#submit-average-price').click(function() {
+                            $('#modal-average-price').modal('hide');
+
+                            var url = 'cookie_controller.php';
+                            var query = { page:"MainPage", command: "AveragePrice", average_price: $('input#input-average-cookie-price').val() };
 
                             $.post(url,
                                 query,
