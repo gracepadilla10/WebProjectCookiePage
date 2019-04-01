@@ -224,17 +224,16 @@ function average_price($cookie_name) {
 
     $sql = "SELECT Price FROM Cookie_Marketplace WHERE Cookie_Name LIKE '%$cookie_name%'";
     $result = mysqli_query($conn, $sql);
-    echo "The average price of cookies that have " . $cookie_name . " in their name is: " . $average;
     
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
-            $data = floatval($data) + $row;
+            $data = floatval($data) + floatval($row);
             $count++;
         }
     }
     $average = $data/$count;
     
-    echo "The average price of cookies that have " + $cookie_name + " in their name is: " + $average;
+    echo "The average price of cookies that have '" . $cookie_name . "' in their name is: " . $average;
 
     return;
 }
