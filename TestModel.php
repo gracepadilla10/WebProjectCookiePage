@@ -170,7 +170,7 @@ function update_cookie_quantity($cookie_ID, $cookie_quantity) {
     $result = mysqli_query($conn, $sql);
     echo "Cookie quantity updated succesfully!";
 
-    $sqli = "SELECT * FROM Cookie_Marketplace WHERE Cookie_ID LIKE '%$cookie_ID%'";
+    $sqli = "SELECT * FROM Cookie_Marketplace WHERE Cookie_ID LIKE '$cookie_ID'";
     $results = mysqli_query($conn, $sqli);
     $i = 0;
 
@@ -191,7 +191,7 @@ function update_cookie_price($cookie_ID, $cookie_price) {
     $result = mysqli_query($conn, $sql);
     echo "Cookie price updated succesfully!";
 
-    $sqli = "SELECT * FROM Cookie_Marketplace WHERE Cookie_ID LIKE '%$cookie_ID%'";
+    $sqli = "SELECT * FROM Cookie_Marketplace WHERE Cookie_ID LIKE '$cookie_ID'";
     $results = mysqli_query($conn, $sqli);
     $i = 0;
 
@@ -211,6 +211,30 @@ function delete_cookie($cookie_ID) {
     $sql = "DELETE from Cookie_Marketplace where (Cookie_ID = $cookie_ID)";
     $result = mysqli_query($conn, $sql);
     echo "Cookie deleted succesfully!";
+
+    return;
+}
+
+function average_price($cookie_name) {
+    $data = 0;
+    global $conn;
+
+    $count = 0;
+    $average = 0;
+
+    $sql = "SELECT Price FROM Cookie_Marketplace WHERE Cookie_Name LIKE '%$cookie_name%'";
+    $result = mysqli_query($conn, $sql);
+    echo "The average price of cookies that have " . $cookie_name . " in their name is: " . $average;
+    
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            $data = floatval($data) + $row;
+            $count++;
+        }
+    }
+    $average = $data/$count;
+    
+    echo "The average price of cookies that have " + $cookie_name + " in their name is: " + $average;
 
     return;
 }

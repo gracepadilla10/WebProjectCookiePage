@@ -126,6 +126,10 @@ else if ($_POST['page'] == 'MainPage')
             delete_cookie($_POST['cookie_delete']);
             break;
 
+        case 'AveragePrice':
+            average_price($_POST['average_prices']);
+            break;
+
         case 'Unsubscribe':
             unsubscribe($_SESSION['username'], $_POST['user_password']);
             // destroy session variables and the session

@@ -259,10 +259,10 @@
                         <form id="form-average-price">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Delete Cookie by ID</h4>
+                                <h4 class="modal-title">Average Price of Cookies</h4>
                             </div>
                             <div class="modal-body">
-                                <label for="input-average-cookie-price">Cookie ID:</label>
+                                <label for="input-average-cookie-price">Cookie Name:</label>
                                 <input id="input-average-cookie-price" class="form-control" type="text" autofocus required>
                             </div>
                             <div class="modal-footer">
@@ -624,7 +624,7 @@
                     navs += "<li><a id='update-quantity' data-toggle='modal' data-target='#modal-update-cookie-quantity'>Update Quantity</a></li>";
                     navs += "<li><a id='update-price' data-toggle='modal' data-target='#modal-update-cookie-price'>Update Price</a></li></ul></li>";
                     navs += "<li><a id='delete-cookie' data-toggle='modal' data-target='#modal-delete-cookie'>Delete Cookie</a></li>";
-                    navs += "<li><a id='#'>Get Cookie $ Average</a></li></ul></div>";
+                    navs += "<li><a id='average-price' data-toggle='modal' data-target='#modal-average-price'>Get Cookie $ Average</a></li></ul></div>";
                      
                     $('#content').html(navs);
                     
@@ -712,12 +712,13 @@
                             $('#modal-average-price').modal('hide');
 
                             var url = 'cookie_controller.php';
-                            var query = { page:"MainPage", command: "AveragePrice", average_price: $('input#input-average-cookie-price').val() };
+                            var query = { page:"MainPage", command: "AveragePrice", average_prices: $('input#input-average-cookie-price').val() };
 
                             $.post(url,
                                 query,
                                 function(data) {
-                                $('#under-content').html(data);
+                    
+                                    $('#under-content').html(data);
                             });
                         });
                     });
