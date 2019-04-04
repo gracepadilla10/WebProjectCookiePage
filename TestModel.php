@@ -248,6 +248,7 @@ function delete_cookie($cookie_ID) {
 function average_price($cookie_name) {
     $data = 0;
     global $conn;
+    $price = 0;
 
     $count = 0;
     $average = 0;
@@ -257,11 +258,11 @@ function average_price($cookie_name) {
     
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
-            $data = floatval($data) + floatval($row);
+            $price = $price + $row['Price'];
             $count++;
         }
     }
-    $average = $data/$count;
+    $average = $price/$count;
     
     echo "The average price of cookies that have '" . $cookie_name . "' in their name is: " . $average;
 
@@ -276,8 +277,8 @@ function unsubscribe($username, $password) {
     $sql = "DELETE from Users WHERE (Username = '$username' and Password = '$hashed_password')";
     $result = mysqli_query($conn, $sql);
     echo "User deleted succesfully";
-    return;  
     }
+    return;
 }
 
 ?>
