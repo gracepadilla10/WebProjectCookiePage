@@ -78,7 +78,7 @@ else if ($_POST['page'] == 'MainPage')
         case 'SignOut':
             // destroy session variables and the session
             session_unset();
-            session_destroy();
+            session_destroy();   
             // go to 'StartPage'
             $display_type = 'no-signin';
             include('view_cookie_startpage.php');
@@ -111,7 +111,7 @@ else if ($_POST['page'] == 'MainPage')
             break;
 
         case 'ShowMarketplace':
-            display_marketplace();
+            display_marketplace($_POST['cookie_limit']);
             break;
 
         case 'UpdateCookieQuantity':
@@ -132,13 +132,9 @@ else if ($_POST['page'] == 'MainPage')
 
         case 'Unsubscribe':
             unsubscribe($_SESSION['username'], $_POST['user_password']);
-            // destroy session variables and the session
-            session_unset();
-            session_destroy();   
-            // go to 'StartPage'
             $display_type = 'no-signin';
             include('view_cookie_startpage.php');
-            break;
+            exit();
 
         default:
             echo 'Unknown command - ' . $command . '<br>';

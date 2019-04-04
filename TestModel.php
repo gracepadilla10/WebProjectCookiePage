@@ -175,10 +175,11 @@ function search_by_ID($cookie_ID)
 }
 
 // Function to display the Marketplace table and the items within
-function display_marketplace() {
+function display_marketplace($limit) {
     global $conn;
+    
 
-    $sql = "SELECT * FROM Cookie_Marketplace limit 25";
+    $sql = "SELECT * FROM Cookie_Marketplace limit $limit";
     $result = mysqli_query($conn, $sql);
     $i = 0;
 
@@ -269,17 +270,14 @@ function average_price($cookie_name) {
 
 function unsubscribe($username, $password) {
     global $conn;
-
     $hashed_password = sha1($password);
 
-    if (!does_exist($username))
-        return false;
-
-    else {
-        $sql = "DELETE from Users WHERE (Username = '$username' and Password = '$hashed_password')";
-        $result = mysqli_query($conn, $sql);
-        return;
+    if (does_exist($username)) {
+    $sql = "DELETE from Users WHERE (Username = '$username' and Password = '$hashed_password')";
+    $result = mysqli_query($conn, $sql);
+    echo "User deleted succesfully";
+    return;  
     }
-
 }
+
 ?>
