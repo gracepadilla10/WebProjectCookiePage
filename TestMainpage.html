@@ -625,7 +625,9 @@
                     navs += "<li><a id='update-price' data-toggle='modal' data-target='#modal-update-cookie-price'>Update Price</a></li></ul></li>";
                     navs += "<li><a id='delete-cookie' data-toggle='modal' data-target='#modal-delete-cookie'>Delete Cookie</a></li>";
                     navs += "<li><a id='average-price' data-toggle='modal' data-target='#modal-average-price'>Get Cookie $ Average</a></li></ul></div>";
-                     
+                    navs += "<div class='form-group' style='display: none;' id= 'number-toggle'><div class = 'col-sm-offset-11'><select id='number' class='form-control'><option value='25' selected>25</option>";
+                    navs += "<option value='50'>50</option><option value='100'>100</option></select></div></div>";
+
                     $('#content').html(navs);
                     
                     $('#under-content').css('display', 'none');
@@ -634,8 +636,10 @@
                         // Function in Marketplace table to run the Show the entire Marketplace table and the elements within
                         $('#show-table').click(function (){
                             $('#under-content').css('display', 'block');
-                            var url = 'cookie_controller.php';  // controller
-                            var query = { page:"MainPage", command: "ShowMarketplace" };  // read the search term from the input element
+                            $('#number-toggle').css('display', 'block');
+
+                            var url = 'cookie_controller.php';  // cookie_controller
+                            var query = { page:"MainPage", command: "ShowMarketplace", cookie_limit: $('select#number option:selected').val() };  // read the search term from the input element
 
                             $.post(url,
                                 query,
@@ -663,12 +667,13 @@
                     
                     // Function in Marketplace table to run the Update table when a cookie needs to be updated in quantity.
                         $('#submit-update-cookie-quantity').click(function() {
+                            $('#number-toggle').css('display', 'none');
                             $('#modal-update-cookie-quantity').modal('hide');
 
                             var url = 'cookie_controller.php';
                             var query = { page:"MainPage", command: "UpdateCookieQuantity", 
                                         searchTerm: $("input#input-update-cookie-quantity-id").val(),
-                                        cookie_quantity: $("input#input-update-cookie-quantity").val() };
+                                        cookie_quantity: $("input#input-update-cookie-quantity").val()};
 
                             $.post(url,
                                 query,
@@ -679,6 +684,7 @@
 
                     // Function in Marketplace table to run the Update table when a cookie needs to be updated in price.
                         $('#submit-update-cookie-price').click(function() {
+                            $('#number-toggle').css('display', 'none');
                             $('#modal-update-cookie-price').modal('hide');
 
                             var url = 'cookie_controller.php';
@@ -695,6 +701,7 @@
 
                         // Function in Marketplace table to run the Delete button located in the Marketplace page
                         $('#submit-delete-cookie').click(function() {
+                            $('#number-toggle').css('display', 'none');
                             $('#modal-delete-cookie').modal('hide');
 
                             var url = 'cookie_controller.php';
@@ -709,6 +716,7 @@
 
                         // Function in Marketplace table to run the Average price of a cookie button located in the Marketplace page
                         $('#submit-average-price').click(function() {
+                            $('#number-toggle').css('display', 'none');
                             $('#modal-average-price').modal('hide');
 
                             var url = 'cookie_controller.php';
@@ -738,10 +746,7 @@
                 }
 
                 // When the 'sign-out' navigation pill is clicked
-                $('#signout').click(function () {
-                       var url = 'cookie_controller.php';
-                       var query = { page:"MainPage", command: "SignOut" }; 
-                });
+                $('#signout').click(signout);
             </script>
             
             <!-- Function to unsubscribe from the page, this will Delete the user from the Users database.-->
@@ -764,7 +769,7 @@
                             });
 
                     });
-                });
+            //});
                 
             </script>
             
