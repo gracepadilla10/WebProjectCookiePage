@@ -130,11 +130,10 @@ else if ($_POST['page'] == 'MainPage')
             average_price($_POST['average_prices']);
             break;
 
-        case 'Unsubscribe':
-            unsubscribe($_SESSION['username'], $_POST['user_password']);
-            $display_type = 'no-signin';
-            include('view_cookie_startpage.php');
-            exit();
+        case 'Unsubscribe': 
+            unsubscribe($_SESSION['username'], $_POST['user_password']); 
+           // include('view_cookie_startpage.php');
+            break;
 
         default:
             echo 'Unknown command - ' . $command . '<br>';

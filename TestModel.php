@@ -274,10 +274,12 @@ function unsubscribe($username, $password) {
     $hashed_password = sha1($password);
 
     if (does_exist($username)) {
-    $sql = "DELETE from Users WHERE (Username = '$username' and Password = '$hashed_password')";
-    $result = mysqli_query($conn, $sql);
-    echo "User deleted succesfully";
+        $sql = "DELETE from Users WHERE (Username = '$username' and Password = '$hashed_password')";
+        $result = mysqli_query($conn, $sql);
+        echo "User deleted succesfully";
     }
+    else 
+        echo "Incorrect password";
     return;
 }
 

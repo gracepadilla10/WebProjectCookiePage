@@ -756,16 +756,19 @@
                     $('#under-content').css('display', 'none');
                     $('#modal-unsubscribe').modal('hide');
                 
-                // Send then'SearchCookieByName' command using jQuery AJAX
+                // Send then'Unsubscribe' command using jQuery AJAX
                 
                     var url = 'cookie_controller.php';  // controller
                     var query = { page:"MainPage", command: "Unsubscribe",
                                 user_password: $('input#input-unsubscribe').val() };
+                    
+                    
 
                     $.post(url,
                             query,
                             function(data) {
-                                $('#under-content').html(data);
+                                $('#content').html(data);
+                                signout();
                             });
 
                     });
