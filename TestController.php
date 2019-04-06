@@ -123,7 +123,7 @@ else if ($_POST['page'] == 'MainPage')
             break;
         
         case 'DeleteCookie':
-            delete_cookie($_POST['cookie_delete']);
+            delete_cookie($_POST['cookie_delete'], $_SESSION['username']);
             break;
 
         case 'AveragePrice':
